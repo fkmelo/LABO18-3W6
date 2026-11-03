@@ -30,9 +30,16 @@
             {
                 <tr>
                     <td width="50%">
-                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id" >
+                        @* 1. On change dynamiquement btn-info en btn-secondary si IsDisponible est false *@
+                        <a class="btn @(item.IsDisponible ? "btn-info" : "btn-secondary")" asp-action="Details" asp-route-id="@item.Id">
                             @item.TypeName
                         </a>
+
+                        @* 2. Si le type n'est pas disponible, on ajoute le texte à côté *@
+                        @if (!item.IsDisponible)
+                        {
+                            <span class="text-muted ms-2">Indisponible</span>
+                        }
                     </td>
                     <td class="text-center" width="15%">@item.Point</td>
                     <td class="text-center">
